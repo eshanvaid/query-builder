@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+# query-builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app provides a dynamic query builder component for building complex queries in a simple manner. It is specifically designed for analytics platforms that have varying access patterns, which can result in the need for complex queries. End-users who may not have the necessary technical knowledge to write such complex queries will benefit from this app as it provides an easy-to-use interface for building these complex queries. The library offers the ability to copy the query to clipboard, send the query to backend as either a string or as a Rule object array, providing flexibility for various use cases.
 
-## Available Scripts
+## Installation and Usage
 
-In the project directory, you can run:
+To run this project on a local machine:
+1. Clone the repository to your local machine using the following command:
 
-### `npm start`
+```
+  git clone https://github.com/eshanvaid/query-builder
+```
+2. Navigate to the root directory of the project and install the necessary dependencies using the package manager of your choice. For example, if you are using npm, you can use the following command:
+```
+npm install
+```
+3. Start the development server by running the following command:
+```
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+4. The app should now be running on your local machine at http://localhost:3000.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+5. Open another terminal and navigate to the server directory from root directory and install dependencies for backend and start the backend server.
+```
+cd server
+node server.js
+```
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+6. The server is now listening on your local machine at http://localhost:4000.
