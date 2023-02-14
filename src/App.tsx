@@ -1,7 +1,6 @@
 import './App.css';
-import logo from './logo.png';
 import Navbar from './components/Navbar';
-import QueryBuilder from './components/QueryBuilder';
+import QueryBuilder from './components/Builder';
 
 function App() {
   return (
