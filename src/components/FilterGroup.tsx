@@ -50,7 +50,7 @@ const FilterGroup = ({ id, filterGroup, onUpdate }: FilterGroupProps) => {
   }, [conjunctionType, filters, filterGroup.id, onUpdate]);
 
   return (
-    <div className="bg-[#282B30] border-2 border-gray-700 shadow-xl p-6 mt-1 mb-4 min-w-full flex flex-col justify-center content-center">
+    <div className="bg-[#282B30] border-2 border-gray-700 shadow-l p-6 mt-1 mb-4 min-w-full flex flex-col justify-center content-center">
       <div className="self-start px-5">
         <div className="inline-flex">
           <button onClick={() => setConjunctionType("AND")} className={`${conjunctionType === "AND" ? "bg-[#5C61F0]" : "bg-[#404348]"} text-white font-bold text-md py-1 px-3 rounded-l`}>
