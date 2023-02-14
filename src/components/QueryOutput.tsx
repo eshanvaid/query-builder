@@ -1,17 +1,19 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import { conditions, conjunctions } from "../data/content";
 import type { ConjunctionType, RuleGroup } from "../data/models";
 
 interface Props {
-  conjunction: ConjunctionType;
   groups: Array<RuleGroup>;
 }
 
-const QueryOutput = ({ conjunction, groups }: Props) => {
+const serverPort = "4000";
 
+const QueryOutput = ({ groups }: Props) => {
+  var currentConjunction: ConjunctionType;
   const buildQuery = useMemo(() => {
     return groups
       .map((filter) => {
+        currentConjunction = filter.conjunction;
         if (!(filter.children[0].field && filter.children[0].condition && filter.children[0].value)) {
           return "";
         }
@@ -25,25 +27,66 @@ const QueryOutput = ({ conjunction, groups }: Props) => {
               return "";
             })
             .filter((s) => s.length > 1)
-            .join(` ${conjunctions.get(filter.conjunction)} `) +
+            .join(` ${conjunctions.get("AND")} `) +
           ")"
         );
       })
       .filter((s) => s.length > 1)
-      .join(` ${conjunctions.get(conjunction)} `);
-  }, [groups, conjunction]);
+      .join(` ${conjunctions.get(currentConjunction)} `);
+  }, [groups]);
 
   const handleCopyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(buildQuery);
   }, [buildQuery]);
 
+  const handleSendToStringAPI = useCallback(() => {
+    fetch("http://localhost:"+serverPort+"/query/string", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: buildQuery }),
+    })
+    .then(() => {
+      window.alert("Query sent as string to server running on port " + serverPort);
+    })
+    .catch(error => console.error(error))
+  }, [buildQuery]);
+
+
+  const handleSendToRuleObjectAPI = useCallback(() => {
+    fetch("http://localhost:"+serverPort+"/query/rule-object", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query: groups }),
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    .then(() => {
+      window.alert("Query sent as array of ruleGroup objects to server running on port " + serverPort);
+    })
+    .catch(error => console.error(error))
+  }, [groups]);
+
   return buildQuery.length > 0 ? (
+    <div>
     <div className="bg-[#4338CA] m-5 p-2 rounded flex self-start text-sm">
       <div className="font-bold mr-2">{"Query: "}</div>
       <div>{buildQuery}</div>
       <button className="ml-auto mr-4" onClick={handleCopyToClipboard}>
         <img className="w-6" src='./copy.png' />
       </button>
+    </div>
+    <div className="text-sm flex">
+    <button className="mx-4 rounded bg-[#1c1752] p-2" onClick={handleSendToStringAPI}>
+        Send to String API
+      </button>
+      <button className="rounded bg-[#1c1752] p-2" onClick={handleSendToRuleObjectAPI}>
+        Send to Rule Object API
+      </button>
+      </div>
     </div>
   ) : null;
 };
