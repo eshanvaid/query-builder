@@ -34,6 +34,7 @@ const QueryOutput = ({ groups }: Props) => {
   }, [groups]);
 
   const handleCopyToClipboard = useCallback(() => {
+    window.alert("Query copied to clipboard!")
     navigator.clipboard.writeText(buildQuery);
   }, [buildQuery]);
 
