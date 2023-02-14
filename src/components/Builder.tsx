@@ -35,7 +35,7 @@ const QueryBuilder = () => {
       <div className="center-content p-10 w-full rounded">
         <h1 className="mt-1 bg-[#5C61F0] p-6 text-gray-100 w-full text-lg leading-7 font-medium">
           <span>Build your query</span>
-          <QueryOutput conjunction="AND" filters={groups} />
+          <QueryOutput conjunction="AND" groups={groups} />
         </h1>
         <div className="bg-[#1D2025] shadow-xl p-2 mb-4 border-gray-500 flex flex-col items-start justify-center">
           {groups.map((group, i) => (
