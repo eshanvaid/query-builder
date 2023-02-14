@@ -9,11 +9,9 @@ interface Props {
 const serverPort = "4000";
 
 const QueryOutput = ({ groups }: Props) => {
-  var currentConjunction: ConjunctionType;
   const buildQuery = useMemo(() => {
     return groups
       .map((filter) => {
-        currentConjunction = filter.conjunction;
         if (!(filter.children[0].field && filter.children[0].condition && filter.children[0].value)) {
           return "";
         }
@@ -27,12 +25,12 @@ const QueryOutput = ({ groups }: Props) => {
               return "";
             })
             .filter((s) => s.length > 1)
-            .join(` ${conjunctions.get("AND")} `) +
+            .join(` ${conjunctions.get(filter.conjunction)} `) +
           ")"
         );
       })
       .filter((s) => s.length > 1)
-      .join(` ${conjunctions.get(currentConjunction)} `);
+      .join(` ${conjunctions.get("AND")} `);
   }, [groups]);
 
   const handleCopyToClipboard = useCallback(() => {
@@ -62,8 +60,6 @@ const QueryOutput = ({ groups }: Props) => {
       },
       body: JSON.stringify({ query: groups }),
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
     .then(() => {
       window.alert("Query sent as array of ruleGroup objects to server running on port " + serverPort);
     })
