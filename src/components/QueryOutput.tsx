@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { conditions, conjunctions } from "../data/content";
-import type { ConjunctionType, RuleGroup } from "../data/models";
+import type { RuleGroup } from "../data/models";
 
 interface Props {
   groups: Array<RuleGroup>;
@@ -34,8 +34,8 @@ const QueryOutput = ({ groups }: Props) => {
   }, [groups]);
 
   const handleCopyToClipboard = useCallback(() => {
-    window.alert("Query copied to clipboard!")
     navigator.clipboard.writeText(buildQuery);
+    window.alert("Query copied to clipboard!")
   }, [buildQuery]);
 
   const handleSendToStringAPI = useCallback(() => {
