@@ -16,7 +16,7 @@ const QueryOutput = ({ groups }: Props) => {
           return "";
         }
         return (
-          " (" +
+          (filter.not ? " !" : " ") +"(" +
           filter.children
             .map((f) => {
               if (f.field && f.condition && f.value) {

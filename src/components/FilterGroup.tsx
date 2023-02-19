@@ -12,6 +12,7 @@ const defaultFilter: Rule = { id: 0, type: "rule" };
 
 const FilterGroup = ({ id, filterGroup, onUpdate }: FilterGroupProps) => {
   const [conjunctionType, setConjunctionType] = useState(filterGroup.conjunction);
+  const [negation, setNegation] = useState(filterGroup.not);
   const [filters, setFilters] = useState<Rule[]>(filterGroup.children);
 
   const handleAddFilter = useCallback(() => {
@@ -44,10 +45,11 @@ const FilterGroup = ({ id, filterGroup, onUpdate }: FilterGroupProps) => {
         id: filterGroup.id,
         conjunction: conjunctionType,
         children: filters,
-        type: "rule_group"
+        type: "rule_group",
+        not: negation
       }, filters);
     }
-  }, [conjunctionType, filters, filterGroup.id, onUpdate]);
+  }, [conjunctionType, negation, filters, filterGroup.id, onUpdate]);
 
   return (
     <div className="bg-[#282B30] border-2 border-gray-700 shadow-l p-6 mt-1 mb-4 min-w-full flex flex-col justify-center content-center">
@@ -60,6 +62,9 @@ const FilterGroup = ({ id, filterGroup, onUpdate }: FilterGroupProps) => {
               OR
           </button>
         </div>
+        <button onClick={() => setNegation(!negation)} className={`${negation === true ? "bg-[#5C61F0]" : "bg-[#404348]"} text-white font-bold ml-8 text-md py-1 px-3 rounded`}>
+              NOT
+          </button>
       </div>
       {filters.map((filter, index) => (
         <Filter
